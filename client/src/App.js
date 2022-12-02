@@ -2,10 +2,14 @@ import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import Ingredients from "./Compenents/ingredients";
 function App() {
   const [expressCheck, setExpressCheck] = useState("");
+  const [toggleVis, setVis] = useState(false);
 
+  const useSetVis = () => {
+      setVis(!toggleVis);
+  }
   useEffect(() => {
     axios
       .get(`http://localhost:9000/testAPI`)
@@ -18,50 +22,27 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 w-2/3 md:w-1/2 gap-4">
-          <div className="border rounded border-gray-500 bg-slate-700 p-4">
-            <h1>React</h1>
+      <header className="App-header bg-gradient-to-tr from-blue-400 to-blue-100">
+      <header style={{color: "black"}}> Oski's Kitchen</header>
+        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-1 w-2/3 md:w-1/2 gap-4">
+          <div className="rounded border-gray-500 bg-slate-700 p-4 self-center border-8">
+            <h1>Ingredients</h1>
             <p className="text-lg">
-              <a className="text-pink-300" href="https://reactjs.org">
-                React
-              </a>{" "}
-              is a frontend development framework. If you're using Angular or Vue, I am so sorry for you. 
+              <Ingredients/>
+              <button className="bg-amber-400 m-6 p-3 rounded-2xl" onClick={useSetVis}>Generate</button>
             </p>
           </div>
           <div className="border rounded border-gray-500 bg-slate-700 p-4">
-            <h1>Express</h1>
+            <h1>Top 3 Recipes</h1>
             <p className="text-lg py-2">
-              <a className="text-pink-300" href="https://expressjs.com/">
-                Express
-              </a>{" "}
-              is a Node.js web app framework. To create new routes, add files to api/routes. Feel free to use testAPI.js (which is where "Working properly" is being pulled from) as a reference
-            </p>
-          
-            <div className="flex gap-2 text-center justify-center">
-              <p className="text-sm font-bold">Express Status:</p>
-            <p className="text-sm">{expressCheck}</p>
-            
-            </div>
-          
-          </div>
-          <div className="border rounded border-gray-500 bg-slate-700 p-4">
-            <h1>Tailwind</h1>
-            <p className="text-lg">
-              <a className="text-pink-300" href="https://tailwindcss.com/">
-                Tailwind
-              </a>{" "}
-              is a utility-class based CSS framework. With Tailwind, in-line styling is super easy, and all the classes you see in className are Tailwind classes.  
-            </p>
-          </div>
-          <div className="border rounded border-gray-500 bg-slate-700 p-4">
-            <h1>Vivid</h1>
-            <p className="text-lg">
-              <a className="text-pink-300" href="https://docs.vivid.lol">
-                Vivid
-              </a>{" "}
-              is an in-browser styler for your Tailwind classes. Command-Click on any component you see on your screen to pull up Vivid's code pane. Then hit Command-K to bring up the command palette. 
+              <div className="text-pink-300" href="https://expressjs.com/">
+                {toggleVis && <a href="https://www.averiecooks.com/easy-better-takeout-chicken-fried-rice/" target="_blank" rel="noopener noreferrer">Chicken Fried Rice</a>}
+                <br></br>
+                {toggleVis && <a href="https://sweetandsavorymeals.com/california-chicken-breakfast-burrito/" target="_blank" rel="noopener noreferrer">California Chicken Breakfast Burrito</a>}
+                <br></br>
+                {toggleVis && <a href="https://www.simplyrecipes.com/recipes/how_to_make_an_omelet/" target="_blank" rel="noopener noreferrer">Omelette</a>}
+
+              </div>
             </p>
           </div>
         </div>
